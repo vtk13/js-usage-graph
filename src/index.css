@@ -1,0 +1,1132 @@
+* {
+    box-sizing: border-box;
+}
+html, body, #root {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+h2 {
+    margin: 4px 0;
+}
+
+.app {
+    display: grid;
+    grid-template-columns: 60px 300px 2fr 1fr;
+    grid-template-rows: auto 1fr auto 1fr;
+    grid-auto-flow: column;
+    height: 100%;
+    gap: 8px;
+    padding: 8px;
+}
+
+.app h2 {
+    margin: 0;
+    padding: 0;
+    font-size: 1.2em;
+}
+
+.tree-container {
+    grid-row: 2 / span 3;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px;
+    overflow: auto;
+}
+
+.editor {
+    width: 100%;
+    height: 100%;
+    font-family: monospace;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px;
+    white-space: pre-wrap;
+    overflow: auto;
+    outline: none;
+    grid-row: 2 / span 3;
+}
+
+.nodes-list {
+    height: 100%;
+    overflow: auto;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px;
+}
+
+.node-item {
+    padding: 5px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+}
+
+.node-item:hover {
+    background-color: #f5f5f5;
+}
+
+.node-item.selected {
+    background-color: #f0f0f0;
+    font-weight: bold;
+}
+
+.node-item i {
+    color: #666;
+    cursor: pointer;
+    padding: 4px;
+}
+
+.node-item i:hover {
+    color: #2196f3;
+}
+
+.node-details {
+    height: 100%;
+    overflow: auto;
+    margin: 0;
+    padding: 5px;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 12px;
+    border: 1px solid #ccc;
+}
+
+.mode-icons {
+    grid-row: 1 / span 4;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 8px;
+    border-right: 1px solid #eee;
+}
+
+.mode-icon {
+    font-size: 24px;
+    color: #666;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.mode-icon:hover {
+    background-color: #f5f5f5;
+}
+
+.mode-icon.active {
+    color: #2196f3;
+    background-color: #e3f2fd;
+}
+
+.bookmarks-view {
+    grid-column: 3 / span 2;
+    grid-row: 1 / span 4;
+}
+
+.bookmarks-header {
+    grid-column: 2 / span 3;
+}
+
+.bookmarks-list {
+    grid-column: 2 / span 3;
+    grid-row: 2 / span 3;
+    overflow: auto;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px;
+}
+
+.compact-tree {
+    padding: 0.5rem;
+}
+
+.compact-tree .p-tree-container .p-treenode {
+    padding: 0;
+}
+
+.compact-tree .p-tree-container .p-treenode-content {
+    padding: 0;
+}
+.compact-tree .p-tree-toggler {
+    margin-right: 0;
+}
+.compact-tree .p-treenode-droppoint {
+    height: 0.25rem;
+}
+
+.bookmark-item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 0.25rem;
+}
+
+.bookmark-item.done {
+    color: #adb5bd;
+}
+
+.bookmark-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.bookmark-title {
+    flex: 1;
+    margin-right: 1rem;
+}
+
+.bookmark-comment {
+    font-size: 0.8rem;
+    color: #666;
+    margin-top: 0.25rem;
+}
+
+.bookmark-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.bookmark-actions i {
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 4px;
+}
+
+.bookmark-actions i:hover {
+    background-color: #e9ecef;
+}
+
+.text-500 {
+    color: #666;
+    font-size: 0.9em;
+}
+
+.highlight {
+    background-color: rgba(255, 255, 0, 0.3);
+    border-radius: 2px;
+}
+
+.bookmarks-toolbar {
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.bookmarks-toolbar .p-button {
+    margin-left: 0.5rem;
+}
+
+.header-icon {
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+}
+
+.header-icon:hover {
+    background-color: #e9ecef;
+}
+
+/* Usages section styles */
+.usages-section {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.usages-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 8px;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+}
+
+.find-usages-btn {
+    padding: 8px 16px;
+    background-color: #1976d2;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.find-usages-btn:hover:not(:disabled) {
+    background-color: #1565c0;
+}
+
+.find-usages-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.selected-node-info {
+    font-size: 12px;
+    color: #666;
+    font-family: monospace;
+}
+
+.usages-result {
+    flex: 1;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    padding: 12px;
+    font-family: monospace;
+    font-size: 12px;
+    overflow: auto;
+    white-space: pre-wrap;
+}
+
+.no-selection {
+    padding: 20px;
+    text-align: center;
+    color: #666;
+    font-style: italic;
+}
+
+.graph-view-header {
+    grid-column: 2 / span 3;
+}
+
+.graph-view-panel {
+    grid-column: 2 / span 3;
+    grid-row: 2 / span 3;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.graph-experiment {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 400px;
+}
+
+.graph-experiment-body {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+    gap: 0;
+}
+
+.graph-code-panel-column {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+    border-right: 1px solid #ddd;
+    background: #fafafa;
+    /* Чтобы width: …ch в JS совпадал с шириной символа в строках кода */
+    font-size: 11px;
+    font-family: ui-monospace, 'Cascadia Code', 'Consolas', monospace;
+}
+
+.graph-project-root-bar {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 8px 10px;
+    border-bottom: 1px solid #e2e8f0;
+    background: #f1f5f9;
+}
+
+.graph-project-root-label {
+    font-size: 10px;
+    font-weight: 600;
+    color: #475569;
+    font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+
+.graph-project-root-input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 6px 8px;
+    font-size: 11px;
+    font-family: ui-monospace, 'Cascadia Code', 'Consolas', monospace;
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    background: #fff;
+    color: #0f172a;
+}
+
+.graph-project-root-input:focus {
+    outline: none;
+    border-color: #0891b2;
+    box-shadow: 0 0 0 1px rgba(8, 145, 178, 0.25);
+}
+
+.graph-code-fetch-error {
+    margin: 8px 0 0;
+    padding: 8px 10px;
+    font-size: 11px;
+    line-height: 1.35;
+    white-space: pre-wrap;
+    word-break: break-word;
+    color: #7f1d1d;
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 4px;
+    font-family: ui-monospace, monospace;
+}
+
+.graph-code-resizer {
+    flex: 0 0 6px;
+    width: 6px;
+    cursor: col-resize;
+    background: #e2e8f0;
+    align-self: stretch;
+}
+
+.graph-code-resizer:hover {
+    background: #cbd5e1;
+}
+
+.graph-code-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    min-width: 0;
+}
+
+.graph-code-panel--empty {
+    padding: 10px;
+    justify-content: flex-start;
+}
+
+.graph-code-missing {
+    margin: 8px 0 0;
+    font-size: 12px;
+    line-height: 1.4;
+    color: #64748b;
+}
+
+.graph-code-missing code {
+    font-size: 11px;
+    background: #e2e8f0;
+    padding: 1px 4px;
+    border-radius: 3px;
+}
+
+.graph-code-panel-head {
+    flex-shrink: 0;
+    padding: 8px 10px;
+    font-size: 11px;
+    font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    font-weight: 600;
+    color: #334155;
+    border-bottom: 1px solid #e2e8f0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.graph-code-scroll {
+    flex: 1;
+    overflow: auto;
+    margin: 0;
+    padding: 6px 0;
+    font-size: 11px;
+    line-height: 1.45;
+}
+
+.graph-code-line {
+    display: flex;
+    gap: 10px;
+    padding: 0 8px 0 4px;
+    min-height: 1.45em;
+}
+
+.graph-code-line--hi {
+    background: rgba(250, 204, 21, 0.35);
+    box-shadow: inset 3px 0 0 0 rgba(217, 119, 6, 0.9);
+}
+
+.graph-code-gutter {
+    flex: 0 0 2.25rem;
+    text-align: right;
+    color: #94a3b8;
+    user-select: none;
+    font-variant-numeric: tabular-nums;
+}
+
+.graph-code-gutter-num {
+    display: block;
+    text-align: right;
+}
+
+.graph-code-text {
+    flex: 1;
+    min-width: 0;
+    white-space: pre-wrap;
+    word-break: break-word;
+    font-family: ui-monospace, 'Cascadia Code', 'Consolas', monospace;
+    color: #0f172a;
+    background: transparent;
+    padding: 0;
+    margin: 0;
+    font-size: inherit;
+}
+
+.graph-slot-panel-column {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+    border-left: 1px solid #ddd;
+    background: #fafafa;
+}
+
+.graph-slot-resizer {
+    flex: 0 0 6px;
+    width: 6px;
+    cursor: col-resize;
+    background: #e2e8f0;
+    align-self: stretch;
+}
+
+.graph-slot-resizer:hover {
+    background: #cbd5e1;
+}
+
+.graph-slot-panel {
+    flex: 1;
+    min-height: 0;
+    min-width: 0;
+    padding: 10px 12px;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.graph-slot-panel-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.graph-slot-panel-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #475569;
+}
+
+.graph-node-json-label-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.graph-node-json-label-row .graph-slot-panel-label {
+    margin: 0;
+}
+
+.graph-node-json-uuid-btn {
+    flex-shrink: 0;
+    padding: 3px 8px;
+    font-size: 11px;
+    font-family: ui-monospace, monospace;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: #0e7490;
+    background: #ecfeff;
+    border: 1px solid #67e8f9;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.graph-node-json-uuid-btn:hover {
+    background: #cffafe;
+    border-color: #22d3ee;
+}
+
+.graph-fn-name-input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 6px 8px;
+    font-size: 13px;
+    font-family: inherit;
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    background: #fff;
+}
+
+.graph-fn-name-input:focus {
+    outline: none;
+    border-color: #0891b2;
+    box-shadow: 0 0 0 1px rgba(8, 145, 178, 0.25);
+}
+
+.graph-node-json-editor {
+    flex: 1;
+    min-height: 0;
+}
+
+.graph-node-json-textarea {
+    flex: 1;
+    min-height: 160px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px 10px;
+    font-size: 12px;
+    line-height: 1.4;
+    font-family: ui-monospace, 'Cascadia Code', 'Consolas', monospace;
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    background: #fff;
+    resize: vertical;
+    color: #0f172a;
+}
+
+.graph-node-json-textarea:focus {
+    outline: none;
+    border-color: #0891b2;
+    box-shadow: 0 0 0 1px rgba(8, 145, 178, 0.25);
+}
+
+.graph-node-json-error {
+    margin: 0;
+    font-size: 11px;
+    line-height: 1.35;
+    color: #b91c1c;
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.graph-node-link-form {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    gap: 6px;
+    margin-top: 10px;
+    flex-shrink: 0;
+}
+
+.graph-node-link-from {
+    flex: 1 1 42%;
+    min-width: 0;
+    box-sizing: border-box;
+    padding: 5px 6px;
+    font-size: 11px;
+    font-family: inherit;
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    background: #fff;
+    color: #0f172a;
+}
+
+.graph-node-link-to {
+    flex: 1 1 38%;
+    min-width: 0;
+    box-sizing: border-box;
+    padding: 5px 6px;
+    font-size: 11px;
+    font-family: ui-monospace, monospace;
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    background: #fff;
+    color: #0f172a;
+}
+
+.graph-node-link-from:focus,
+.graph-node-link-to:focus {
+    outline: none;
+    border-color: #0891b2;
+    box-shadow: 0 0 0 1px rgba(8, 145, 178, 0.25);
+}
+
+.graph-node-link-add-btn {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    padding: 0;
+    border: 1px solid #0891b2;
+    border-radius: 4px;
+    background: #ecfeff;
+    color: #0e7490;
+    cursor: pointer;
+}
+
+.graph-node-link-add-btn:hover:not(:disabled) {
+    background: #cffafe;
+}
+
+.graph-node-link-add-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.graph-node-link-add-icon {
+    display: block;
+}
+
+.graph-node-link-form-error {
+    margin: 4px 0 0;
+    font-size: 11px;
+    line-height: 1.3;
+    color: #b91c1c;
+}
+
+.graph-node-links-for-node {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 8px;
+    flex-shrink: 0;
+}
+
+.graph-node-links-empty {
+    margin: 0;
+    font-size: 11px;
+    color: #94a3b8;
+}
+
+.graph-node-links-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    max-height: 200px;
+    overflow: auto;
+}
+
+.graph-node-links-row {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 6px;
+    min-width: 0;
+    cursor: pointer;
+    border-radius: 4px;
+    padding: 2px;
+    margin: 0 -2px;
+    outline: none;
+}
+
+.graph-node-links-row:hover {
+    background: rgba(8, 145, 178, 0.08);
+}
+
+.graph-node-links-row--selected {
+    background: rgba(168, 85, 247, 0.12);
+    box-shadow: inset 0 0 0 1px rgba(168, 85, 247, 0.45);
+}
+
+.graph-node-links-row--selected:hover {
+    background: rgba(168, 85, 247, 0.16);
+}
+
+.graph-node-links-code {
+    flex: 1;
+    min-width: 0;
+    font-size: 10px;
+    line-height: 1.35;
+    word-break: break-word;
+    padding: 5px 7px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    color: #0f172a;
+}
+
+.graph-node-links-from {
+    font-weight: 500;
+    color: #0f172a;
+}
+
+.graph-node-links-arrow {
+    color: #94a3b8;
+    font-weight: 400;
+}
+
+.graph-node-links-to {
+    font-family: ui-monospace, monospace;
+    color: #334155;
+}
+
+.graph-node-links-extra {
+    color: #64748b;
+    font-weight: 400;
+}
+
+.graph-node-links-remove {
+    flex-shrink: 0;
+    width: 26px;
+    height: 26px;
+    padding: 0;
+    line-height: 1;
+    font-size: 16px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    background: #fff;
+    cursor: pointer;
+    color: #64748b;
+    font-family: inherit;
+}
+
+.graph-node-links-remove:hover {
+    background: #fef2f2;
+    border-color: #f87171;
+    color: #b91c1c;
+}
+
+.graph-node-json-snippets {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 4px;
+    flex-shrink: 0;
+}
+
+.graph-node-json-snippet {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+}
+
+.graph-node-json-snippet-label {
+    font-size: 10px;
+    font-weight: 600;
+    color: #64748b;
+    font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+
+.graph-node-json-snippet-hint {
+    font-weight: 400;
+    color: #94a3b8;
+}
+
+.graph-node-json-snippet-pre {
+    margin: 0;
+    padding: 6px 8px;
+    font-size: 11px;
+    line-height: 1.4;
+    font-family: ui-monospace, 'Cascadia Code', 'Consolas', monospace;
+    color: #0f172a;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    overflow: auto;
+    max-height: 8.5em;
+    white-space: pre;
+    user-select: all;
+    cursor: text;
+}
+
+.graph-side-panel-actions-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+}
+
+.graph-node-json-textarea--links {
+    min-height: 220px;
+}
+
+.graph-node-json-save-btn {
+    padding: 6px 14px;
+    font-size: 12px;
+    font-family: inherit;
+    cursor: pointer;
+    border: 1px solid #0891b2;
+    border-radius: 4px;
+    background: #ecfeff;
+    color: #0e7490;
+}
+
+.graph-node-json-save-btn:hover:not(:disabled) {
+    background: #cffafe;
+}
+
+.graph-node-json-save-btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.graph-slot-panel-hint {
+    margin: 0;
+    font-size: 11px;
+    line-height: 1.35;
+    color: #666;
+}
+
+.graph-slot-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.graph-slot-list li {
+    margin: 0 0 4px;
+}
+
+.graph-slot-row {
+    display: flex;
+    align-items: stretch;
+    gap: 4px;
+}
+
+.graph-slot-row .graph-slot-item {
+    flex: 1;
+    min-width: 0;
+}
+
+.graph-slot-icon-btn {
+    flex: 0 0 28px;
+    width: 28px;
+    padding: 0;
+    font-size: 14px;
+    line-height: 1;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    background: #fff;
+    cursor: pointer;
+    color: #475569;
+    font-family: inherit;
+}
+
+.graph-slot-icon-btn:hover {
+    background: #f1f5f9;
+    border-color: #94a3b8;
+}
+
+.graph-slot-icon-btn--danger:hover {
+    background: #fef2f2;
+    border-color: #f87171;
+    color: #b91c1c;
+}
+
+.graph-slot-edit-input {
+    flex: 1;
+    min-width: 0;
+    box-sizing: border-box;
+    padding: 8px 10px;
+    font-size: 12px;
+    font-family: ui-monospace, monospace;
+    border: 1px solid #0891b2;
+    border-radius: 4px;
+}
+
+.graph-slot-add {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-top: 4px;
+    border-top: 1px solid #e2e8f0;
+}
+
+.graph-slot-add-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.graph-slot-add-input,
+.graph-slot-parent-select {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 6px 8px;
+    font-size: 12px;
+    font-family: inherit;
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    background: #fff;
+}
+
+.graph-slot-add-btn {
+    padding: 6px 10px;
+    font-size: 12px;
+    font-family: inherit;
+    cursor: pointer;
+    border: 1px solid #0891b2;
+    border-radius: 4px;
+    background: #ecfeff;
+    color: #0e7490;
+}
+
+.graph-slot-add-btn:hover {
+    background: #cffafe;
+}
+
+.graph-slot-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    width: 100%;
+    text-align: left;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    background: #fff;
+    padding: 8px 10px;
+    font-size: 12px;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.graph-slot-item:hover {
+    background: #f0f7ff;
+    border-color: #90caf9;
+}
+
+.graph-slot-item--active {
+    background: #e3f2fd;
+    border-color: #1976d2;
+    box-shadow: 0 0 0 1px #1976d2;
+}
+
+.graph-slot-item-label {
+    font-family: ui-monospace, monospace;
+    flex: 1;
+    min-width: 0;
+    word-break: break-all;
+}
+
+.graph-slot-item-id {
+    flex-shrink: 0;
+    color: #888;
+    font-size: 10px;
+}
+
+.graph-experiment-delete-btn {
+    padding: 6px 12px;
+    font-size: 12px;
+    font-family: inherit;
+    cursor: pointer;
+    border: 1px solid #c62828;
+    border-radius: 4px;
+    background: #fff;
+    color: #b71c1c;
+}
+
+.graph-experiment-delete-btn:hover:not(:disabled) {
+    background: #ffebee;
+}
+
+.graph-experiment-delete-btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.graph-experiment-canvas-wrap {
+    flex: 1;
+    min-width: 0;
+    min-height: 320px;
+    position: relative;
+}
+
+/* React Flow: точки привязки рёбер без видимых «ручек» */
+.graph-experiment-canvas-wrap .graph-fn-handle {
+    opacity: 0;
+    width: 1px !important;
+    height: 1px !important;
+    min-width: 1px !important;
+    min-height: 1px !important;
+    border: none !important;
+    background: transparent !important;
+    transform: none;
+}
+
+.graph-experiment-canvas-wrap .graph-flow-node {
+    font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    color: #0f172a;
+    background: #ffffff;
+    border: 1px solid rgba(14, 116, 144, 0.35);
+    border-radius: 4px;
+    padding: 6px 12px;
+    line-height: 1.25;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06);
+}
+
+.graph-experiment-canvas-wrap .graph-flow-node--selected {
+    border-color: rgba(8, 145, 178, 0.85);
+    box-shadow: 0 0 0 1px rgba(8, 145, 178, 0.25);
+}
+
+.graph-experiment-canvas-wrap .graph-react-flow {
+    background: #f1f5f9;
+}
+
+.graph-experiment-canvas-wrap .graph-floating-create-node-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    margin: 8px 10px 0 0;
+    padding: 0;
+    border: 1px solid rgba(14, 116, 144, 0.45);
+    border-radius: 6px;
+    background: #fff;
+    color: #0e7490;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.12);
+    font-family: inherit;
+}
+
+.graph-experiment-canvas-wrap .graph-floating-create-node-btn:hover {
+    background: #ecfeff;
+    border-color: #0891b2;
+    color: #0f766e;
+}
+
+.graph-experiment-canvas-wrap > div {
+    position: absolute;
+    inset: 0;
+}
+
+.graph-experiment-canvas-wrap .graph-react-flow-block {
+    pointer-events: none;
+    opacity: 0.58;
+}
+
+.graph-flow-marker-defs {
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
