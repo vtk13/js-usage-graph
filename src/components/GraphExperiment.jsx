@@ -11,7 +11,6 @@ import {
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import dagre from 'dagre';
-import { getClusterMgrSemanticModel } from '../semantic/clusterMgrExample.js';
 
 const CODE_PANEL_MIN_W = 200;
 const CODE_PANEL_MAX_W = 720;
@@ -49,57 +48,6 @@ function joinRootAndRelativeFile(projectRoot, relFile) {
 /** Оценка габаритов узла для dagre (совпадает по порядку с .graph-flow-node). */
 const DAGRE_NODE_W = 248;
 const DAGRE_NODE_H = 52;
-
-/**
- * Синтетическая модель: узлы со слотами; links — [from, to] или [from, to, info],
- * слот–слот (uuid слотов) или вызов узел–узел (uuid функций), info — например { file, line }.
- */
-export function getSyntheticSemanticModel() {
-    const nodes = [
-        {
-            uuid: 11,
-            name: 'R',
-            slots: [
-                { uuid: 12, name: 'user' },
-                { uuid: 13, name: 'x', propOf: 12 },
-                { uuid: 14, name: 'y', propOf: 12 },
-            ],
-        },
-        {
-            uuid: 1,
-            name: 'A',
-            slots: [
-                { uuid: 5, name: 'user' },
-                { uuid: 9, name: 'x', propOf: 5 },
-                { uuid: 10, name: 'y', propOf: 5 },
-            ],
-        },
-        {
-            uuid: 2,
-            name: 'B',
-            slots: [{ uuid: 6, name: 'x' }],
-        },
-        {
-            uuid: 3,
-            name: 'C',
-            slots: [{ uuid: 7, name: 'y' }],
-        },
-        {
-            uuid: 4,
-            name: 'D',
-            slots: [{ uuid: 8, name: 'user' }],
-        },
-    ];
-
-    const links = [
-        [9, 6],
-        [10, 7],
-        [5, 8],
-        [12, 5],
-    ];
-
-    return { nodes, links };
-}
 
 export function buildSlotOwnerMap(semantic) {
     const m = new Map();
@@ -1116,12 +1064,11 @@ const GraphExperiment = () => {
                 }
                 const nodes = Array.isArray(data.nodes) ? data.nodes : [];
                 const links = Array.isArray(data.links) ? data.links : [];
-                const hasAny = nodes.length > 0 || links.length > 0;
-                setSemantic(hasAny ? { nodes, links } : getClusterMgrSemanticModel());
+                setSemantic({ nodes, links });
             } catch (e) {
                 console.warn('graph load failed', e);
                 if (!cancelled) {
-                    setSemantic(getClusterMgrSemanticModel());
+                    setSemantic({ nodes: [], links: [] });
                 }
             } finally {
                 if (!cancelled) {
